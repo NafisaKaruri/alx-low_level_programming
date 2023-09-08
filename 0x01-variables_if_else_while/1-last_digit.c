@@ -12,7 +12,7 @@
 
 int main(void)
 {
-	int n;
+	int n, l;
 
 	srand(time(0));
 	n = rand() - RAND_MAX / 2;
@@ -23,11 +23,11 @@ int main(void)
 	}
 	else if (l == 0)
 	{
-		printf("Last digit of %i is %d and is 0\n", n);
+		printf("Last digit of %i is %d and is 0\n", n, l);
 	}
 	else
 	{
-		printf("Last digit of %i is %d and is", n);
+		printf("Last digit of %i is %d and is", n, l);
 	}
 	return (0);
 }
