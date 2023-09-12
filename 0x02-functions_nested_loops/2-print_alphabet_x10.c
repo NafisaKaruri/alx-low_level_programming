@@ -1,16 +1,23 @@
 #include "main.h"
 
 /**
- * main - Entry point
- *
- * Description: t prints 10 times alphabet, in lowercase,
- *		using prototype print_alphabet_x10
- *
- * Return: Always 0
+ * print_alphabet_x10 - prints 10 times the alphabet, in lowercase
  */
 
-int main(void)
+void print_alphabet_x10(void)
 {
-	print_alphabet_x10();
-	return (0);
+	int i = 0;
+	char j;
+
+	while (i <= 9)
+	{
+		j = 'a';
+		while (j <= 'z')
+		{
+			_putchar(j);
+			j++;
+		}
+		_putchar('\n');
+		i++;
+	}
 }
