@@ -10,20 +10,20 @@
 
 int main(void)
 {
-	int i = 1;
-	int j = 2;
-	int sum = 0;
+	unsigned long i = 1;
+	unsigned long j = 2;
+	unsigned long sum = 0;
 	int count;
 
 	sum = i + j;
-	printf("%d, %d, ", i, j);
+	printf("%lu, %lu, ", i, j);
 	for (count = 0; count < 50; count++)
 	{
 		sum = i + j;
 		if (count == 49)
-			printf("%d\n", sum);
+			printf("%lu\n", sum);
 		else
-			printf("%d, ", sum);
+			printf("%lu, ", sum);
 		i = j;
 		j = sum;
 	}
