@@ -17,7 +17,7 @@ int main(void)
 
 	sum = i + j;
 	printf("%lu, %lu, ", i, j);
-	for (count = 22; count < 50; count++)
+	for (count = 2; count < 50; count++)
 	{
 		sum = i + j;
 		if (count == 49)
