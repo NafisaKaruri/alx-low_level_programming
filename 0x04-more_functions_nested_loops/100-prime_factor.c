@@ -15,7 +15,7 @@ void largest_pf(long n)
 		while (n % i == 0)
 			n = n / i;
 	}
-	printf("%lu", n);
+	printf("%lu\n", n);
 }
 
 /**
