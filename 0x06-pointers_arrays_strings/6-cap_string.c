@@ -12,9 +12,11 @@ char *cap_string(char *s)
 	int i;
 	char separators[] = " \t\n,;.!?'\"(){}";
 
+	if (isalpha(s[0]) && islower(s[0]))
+		s[0] = (int)s[0] - 32;
 	for (i = 0; s[i] != '\0'; i++)
 	{
-		if (i == 0 || strchr(separators, s[i]) != NULL)
+		if (strchr(separators, s[i]) != NULL)
 		{
 			if (isalpha(s[i + 1]) && islower(s[i + 1]))
 				s[i + 1] = (int)s[i + 1] - 32;
