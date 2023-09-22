@@ -9,7 +9,7 @@
  */
 int isPrintableASCII(int n)
 {
-	return (n >=32 && n <= 126);
+	return (n >= 32 && n <= 126);
 }
 
 /**
@@ -43,6 +43,7 @@ void printHexes(char *b, int begin, int end)
 void printASCII(char *b, int begin, int end)
 {
 	int c, i = 0;
+
 	while (i < end)
 	{
 		c = *(b + i + begin);
