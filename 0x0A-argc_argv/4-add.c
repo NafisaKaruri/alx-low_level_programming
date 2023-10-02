@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * main - adds positive numbers
@@ -21,6 +22,11 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 	{
 		while (i < argc)
 		{
+			if (strstr(argv[i], "$") == NULL)
+			{
+				printf("Error\n");
+				return (1);
+			}
 			if (atoi(argv[i]) == 0 && *argv[i] != '0')
 			{
 				printf("Error\n");
