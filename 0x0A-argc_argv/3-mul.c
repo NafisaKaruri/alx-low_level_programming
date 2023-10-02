@@ -12,7 +12,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 {
 	int product = 1, i = 1;
 
-	if (argc <= 1)
+	if (argc <= 2)
 	{
 		printf("Error\n");
 		return (1);
