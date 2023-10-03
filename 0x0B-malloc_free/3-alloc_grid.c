@@ -7,7 +7,7 @@
  * @height: the height of the array
  *
  * Return: NULL if width or height is 0,
- * 		NULL on failure, pointer to array otherwise
+ *		NULL on failure, pointer to array otherwise
  */
 int **alloc_grid(int width, int height)
 {
