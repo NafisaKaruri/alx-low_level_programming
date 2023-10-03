@@ -22,7 +22,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 	{
 		while (i < argc)
 		{
-			if (atoi(argv[i]) == 0 && *argv[i] != '0')
+			if (*argv[i] < '0' || *argv[i] > '9')
 			{
 				printf("Error\n");
 				return (1);
