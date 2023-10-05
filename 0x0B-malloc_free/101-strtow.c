@@ -3,6 +3,30 @@
 #include <string.h>
 
 /**
+ * words - count the number of words
+ * @s: the string
+ *
+ * Return: the number of words
+ */
+int words(char *s)
+{
+	int i, x = 0;
+
+	for (i = 0; s[i]; i++)
+	{
+		if (s[i] == ' ')
+		{
+			if (s[i + 1] != ' ' && s[i + 1] != '\0')
+				x++;
+		}
+		else if (i == 0)
+			x++;
+	}
+	x++;
+	return (x);
+}
+
+/**
  * strtow - splits a string into words
  * @str: the string
  *
@@ -11,39 +35,40 @@
 char **strtow(char *str)
 {
 	char **s;
-	int i, j, x = 0, y;
+	int i, j, k, l, n = 0, w = 0;
 
 	if (str == NULL || strlen(str) == 0)
 		return (NULL);
-	s = malloc(sizeof(char *) * (strlen(str) + 1));
+	n = words(str);
+	if (n == 1)
+		return (NULL);
+	s = (char **)malloc(sizeof(char *) * n);
 	if (s == NULL)
 		return (NULL);
+	s[n - 1] = NULL;
 	for (i = 0; str[i] != '\0'; i++)
 	{
-		if (str[i] != ' ')
+		if (str[i] != ' ' && (i == 0 || str[i - 1] == ' '))
 		{
-			y = 0;
-			while (str[i] != ' ' && str[i] != '\0')
+			for (j = 1; str[i + j] != ' ' && str[i + j]; j++)
+				;
+			j++;
+			s[w] = (char *)malloc(sizeof(char) * j);
+			j--;
+			if (s[w] == NULL)
 			{
-				y++;
-				i++;
-			}
-			s[x] = malloc(sizeof(char) * (y + 1));
-			if (s[x] == NULL)
-			{
-				for (j = 0; j < x; j++)
-					free(s[j]);
+				for (k = 0; k < w; k++)
+					free(s[k]);
+				free(s[n - 1]);
 				free(s);
 				return (NULL);
 			}
-			for (j = 0; j < y; j++)
-			{
-				s[x][j] = str[i - y + j];
-			}
-			s[x][j] = '\0';
-			x++;
+			for (l = 0; l < j; l++)
+				s[w][l] = str[i + l];
+			s[w][l] = '\0';
+			w++;
+			i += j;
 		}
 	}
-	s[x] = '\0';
 	return (s);
 }
