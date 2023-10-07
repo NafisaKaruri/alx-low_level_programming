@@ -16,7 +16,7 @@
  *		If ptr is NULL, then the call is equivalent to malloc(new_size),
  *		for all values of old_size and new_size.
  *
- * Return:
+ * Return: pointer to the allocated space
  */
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
