@@ -45,10 +45,10 @@ unsigned long int _atoi(char *s)
  */
 void exiting(void)
 {
-	char *e = "ERROR";
+	char *e = "Error";
 	unsigned long int i;
 
-	for (i = 0; e[i] != '\0'; i++)
+	for (i = 0; e[i]; i++)
 		_putchar(e[i]);
 	_putchar('\n');
 	exit(98);
@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
 	{
 		for (j = 0; argv[i][j] != '\0'; j++)
 		{
-			if (argv[i][j] < 48 || argv[i][j] > 57)
+			if (argv[i][j] < '0' || argv[i][j] > '9')
 				exiting();
 		}
 	}
