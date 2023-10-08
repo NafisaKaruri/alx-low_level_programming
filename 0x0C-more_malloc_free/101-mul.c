@@ -9,6 +9,7 @@
 void print(unsigned long int n)
 {
 	unsigned long int divisor = 1, i, r;
+
 	for (i = 0; n / divisor > 9; i++, divisor *= 10)
 		;
 	for (; divisor >= 1; n %= divisor, divisor /= 10)
@@ -41,9 +42,9 @@ int _atoi(char *s)
 }
 
 /**
- * _exit - prints ERROR, and exit with a status of 98
+ * exiting - prints ERROR, and exit with a status of 98
  */
-void exiting()
+void exiting(void)
 {
 	char *e = "ERROR";
 	unsigned long int i;
@@ -64,6 +65,7 @@ void exiting()
  *		and exit with a status of 98
  *		num1 and num2 should only be composed of digits. if
  *		not print ERROR, and exit with status of 98
+ * Return: always 0
  */
 int main(int argc, char *argv[])
 {
