@@ -8,15 +8,14 @@
  */
 void print(unsigned long int n)
 {
-	unsigned long int divisor = 1, i, r;
+	unsigned long int x;
 
-	for (i = 0; n / divisor > 9; i++, divisor *= 10)
-		;
-	for (; divisor >= 1; n %= divisor, divisor /= 10)
+	x = n;
+	if (x / 10 != 0)
 	{
-		r = n / divisor;
-		_putchar('0' + r);
+		print(x / 10);
 	}
+	_putchar((x % 10) + '0');
 }
 
 /**
@@ -25,7 +24,7 @@ void print(unsigned long int n)
  *
  * Return: the string as an integer
  */
-int _atoi(char *s)
+unsigned long int _atoi(char *s)
 {
 	unsigned long int result = 0;
 	int sign = 1;
