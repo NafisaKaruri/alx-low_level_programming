@@ -75,9 +75,10 @@ int main(int argc, char *argv[])
 	for (i = 1; argv[i]; i++)
 	{
 		for (j = 0; argv[i][j] != '\0'; j++)
-		if (argv[i][j] < 48 || argv[i][j] > 57)
-			exiting();
-
+		{
+			if (argv[i][j] < 48 || argv[i][j] > 57)
+				exiting();
+		}
 	}
 	print(_atoi(argv[1]) * _atoi(argv[2]));
 	_putchar('\n');
