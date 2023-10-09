@@ -1,43 +1,37 @@
 #include "main.h"
-#include <unistd.h>
 #include <stdlib.h>
 
 /**
- * print - print numbers
- * @n: the integer to be printed
+ * _strlen - counts the number of characters in a string
+ * @s: the string
+ *
+ * Return: the string length
  */
-void print(unsigned long int n)
+int _strlen(char *s)
 {
-	unsigned long int x;
+	int i;
 
-	x = n;
-	if (x / 10 != 0)
-	{
-		print(x / 10);
-	}
-	_putchar((x % 10) + '0');
+	for (i = 0; s[i] != '\0'; i++)
+		;
+	return (i);
 }
 
 /**
- * _atoi - converts a string to an integer
- * @s: the string to be converted
+ * _isdigit - checks if the string is digit or not
+ * @s: the string
  *
- * Return: the string as an integer
+ * Return: 1 if the string is digit, else 0
  */
-unsigned long int _atoi(char *s)
+int _isdigit(char *s)
 {
-	unsigned long int result = 0;
-	int sign = 1;
+	int i;
 
-	do {
-		if (*s == '-')
-			sign = sign * -1;
-		else if (*s >= '0' && *s <= '9')
-			result = (result * 10) + (*s - '0');
-		else if (result > 0)
-			break;
-	} while (*s++);
-	return (sign * result);
+	for (i = 0; s[i] != '\0'; i++)
+	{
+		if (s[i] < '0' || s[i] > '9')
+			return (0);
+	}
+	return (1);
 }
 
 /**
@@ -46,7 +40,7 @@ unsigned long int _atoi(char *s)
 void exiting(void)
 {
 	char *e = "Error";
-	unsigned long int i;
+	int i;
 
 	for (i = 0; e[i]; i++)
 		_putchar(e[i]);
@@ -68,19 +62,43 @@ void exiting(void)
  */
 int main(int argc, char *argv[])
 {
-	unsigned long int i, j;
+	int len1, len2, len, i, j = 0, carry, d1, d2, *result;
+	char *num1, *num2;
 
-	if (argc != 3)
+	num1 = argv[1], num2 = argv[2];
+	if (argc != 3 || !(_isdigit(num1)) || !(_isdigit(num2)))
 		exiting();
-	for (i = 1; argv[i]; i++)
+	len1 = _strlen(num1), len2 = _strlen(num2), len = len1 + len2 + 1;
+	result = malloc(sizeof(int) * len);
+	if (result == NULL)
+		return (1);
+	for (i = 0; i <= len1 + len2; i++)
+		result[i] = 0;
+	for (len1 = len1 - 1; len1 >= 0; len1--)
 	{
-		for (j = 0; argv[i][j] != '\0'; j++)
+		d1 = num1[len1] - 48;
+		carry = 0;
+		for (len2 = _strlen(num2) - 1; len2 >= 0; len2--)
 		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
-				exiting();
+			d2 = num2[len2] - 48;
+			carry += result[len1 + len2 + 1] + (d1 * d2);
+			result[len1 + len2 + 1] = carry % 10;
+			carry /= 10;
 		}
+		if (carry > 0)
+			result[len1 + len2 + 1] += carry;
 	}
-	print(_atoi(argv[1]) * _atoi(argv[2]));
+	for (i = 0; i < len - 1; i++)
+	{
+		if (result[i])
+			j = 1;
+		if (j)
+			_putchar(result[i] + 48);
+	}
+	if (!j)
+		_putchar('0');
 	_putchar('\n');
+	free(result);
+
 	return (0);
 }
