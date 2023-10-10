@@ -2,6 +2,21 @@
 #include <stdlib.h>
 
 /**
+ * _strcpy - copies s2 to s1
+ * @s1: the first string
+ * @s2: the second string
+ */
+void _strcpy(char *s1, char *s2)
+{
+	while(*s2)
+	{
+		*s1 = *s2;
+		s1++;
+		s2++;
+	}
+}
+
+/**
  * new_dog - creates a new dog
  * @name: the dog name
  * @age: the dog age
@@ -24,7 +39,7 @@ dog_t *new_dog(char *name, float age, char *owner)
 	for (s1 = 0; name[s1] != '\0'; s1++)
 		;
 	nd->name = malloc(s1 + 1);
-	if ((*nd).name == NULL)
+	if (nd->name == NULL)
 	{
 		free(nd);
 		return (NULL);
@@ -33,15 +48,15 @@ dog_t *new_dog(char *name, float age, char *owner)
 	for (s2 = 0; owner[s2] != '\0'; s2++)
 		;
 	nd->owner = malloc(s2 + 1);
-	if ((*nd).owner == NULL)
+	if (nd->owner == NULL)
 	{
 		free(nd);
 		free(nd->name);
 		return (NULL);
 	}
 
-	nd->name = name;
+	_strcpy(nd->name, name);
 	nd->age = age;
-	nd->owner = owner;
+	_strcpy(nd->owner, owner);
 	return (nd);
 }
