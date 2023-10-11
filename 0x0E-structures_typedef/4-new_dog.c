@@ -8,12 +8,13 @@
  */
 void _strcpy(char *s1, char *s2)
 {
-	while(*s2)
+	while (*s2)
 	{
 		*s1 = *s2;
 		s1++;
 		s2++;
 	}
+	*s1 = '\0';
 }
 
 /**
@@ -29,7 +30,7 @@ dog_t *new_dog(char *name, float age, char *owner)
 	dog_t *nd;
 	int s1, s2;
 
-	if (!name || age < 0 || !owner)
+	if (name == NULL || age < 0 || owner == NULL)
 		return (NULL);
 
 	nd = malloc(sizeof(dog_t));
@@ -50,8 +51,8 @@ dog_t *new_dog(char *name, float age, char *owner)
 	nd->owner = malloc(s2 + 1);
 	if (nd->owner == NULL)
 	{
-		free(nd);
 		free(nd->name);
+		free(nd);
 		return (NULL);
 	}
 
