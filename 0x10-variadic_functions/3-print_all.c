@@ -62,6 +62,6 @@ void print_all(const char * const format, ...)
 		if (format[i] && _strcmp(format[i], f))
 			printf(", ");
 	}
-	printf("\n");
 	va_end(ap);
+	printf("\n");
 }
