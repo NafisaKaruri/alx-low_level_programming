@@ -58,9 +58,9 @@ void print_all(const char * const format, ...)
 			default:
 				break;
 		}
-		i++;
-		if (format[i] && _strcmp(format[i], f))
+		if (format[i + 1] && _strcmp(format[i], f))
 			printf(", ");
+		i++;
 	}
 	va_end(ap);
 	printf("\n");
