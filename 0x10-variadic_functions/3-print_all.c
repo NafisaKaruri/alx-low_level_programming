@@ -37,34 +37,31 @@ void print_all(const char * const format, ...)
 	int i = 0;
 	char *s, *f = "cifs";
 
-	if (format)
+	va_start(ap, format);
+	while (format[i])
 	{
-		va_start(ap, format);
-		while (format[i])
+		switch (format[i])
 		{
-			switch (format[i])
-			{
-				case 'c':
-					printf("%c", va_arg(ap, int));
-					break;
-				case 'i':
-					printf("%d", va_arg(ap, int));
-					break;
-				case 'f':
-					printf("%f", va_arg(ap, double));
-					break;
-				case 's':
-					s = va_arg(ap, char *);
-					printf("%s", s ? s : "(nil)");
-					break;
-				default:
-					break;
-			}
-			i++;
-			if (format[i] && _strcmp(format[i], f))
-				printf(", ");
+			case 'c':
+				printf("%c", va_arg(ap, int));
+				break;
+			case 'i':
+				printf("%d", va_arg(ap, int));
+				break;
+			case 'f':
+				printf("%f", va_arg(ap, double));
+				break;
+			case 's':
+				s = va_arg(ap, char *);
+				printf("%s", s ? s : "(nil)");
+				break;
+			default:
+				break;
 		}
-		printf("\n");
-		va_end(ap);
+		i++;
+		if (format[i] && _strcmp(format[i], f))
+			printf(", ");
 	}
+	printf("\n");
+	va_end(ap);
 }
