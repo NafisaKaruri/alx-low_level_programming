@@ -9,6 +9,6 @@ main:
 	mov rdi, hello
 	xor al, al
 	call printf
-	mov rax, 60
-	xor rdi, rdi
+	mov eax, 60
+	xor edi, edi
 	syscall
