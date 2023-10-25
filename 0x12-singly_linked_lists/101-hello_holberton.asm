@@ -5,10 +5,9 @@ section .text
         extern printf
 
 main:
-	push rbp
         mov rdi, format
+	xor rax, rax
         call printf
-	add rsp, 8
-        mov rax, 60
-        xor rdi, rdi
+        mov eax, 0x60
+        xor edi, edi
         syscall
