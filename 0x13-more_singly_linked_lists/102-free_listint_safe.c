@@ -12,10 +12,7 @@ size_t free_listint_safe(listint_t **h)
 	size_t i = 0;
 
 	if (!*h)
-	{
-		*h = NULL;
 		exit(98);
-	}
 
 	while (current)
 	{
