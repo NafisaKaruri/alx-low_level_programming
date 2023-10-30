@@ -38,9 +38,10 @@ int main(int argc, char **argv)
 		dprintf(2, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
-
+	if (!argv[1])
+		read_err(argv);
 	fd = open(argv[1], O_RDONLY);
-	if (!argv[1] || fd == -1)
+	if (fd == -1)
 		read_err(argv);
 
 	fd1 = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
@@ -55,7 +56,6 @@ int main(int argc, char **argv)
 	}
 	if (r == -1)
 		read_err(argv);
-
 	c = close(fd);
 	if (c == -1)
 	{
