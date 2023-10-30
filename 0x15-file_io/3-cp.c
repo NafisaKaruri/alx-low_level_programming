@@ -36,6 +36,22 @@ void write_err(char **argv)
 }
 
 /**
+ * _strcmp - compares two strings
+ * @s1: the first string
+ * @s2: the second string
+ *
+ * Return: 0 if no differences
+ */
+int _strcmp(char *s1, char *s2)
+{
+	while (*s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+}
+/**
  * main - copies the content of a file to another file
  * @argc: argument counter
  * @argv: argument vector
@@ -52,6 +68,8 @@ int main(int argc, char **argv)
 		dprintf(2, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
+	if (_strcmp(argv[1], argv[2]) == 0)
+		return (0);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		read_err(argv);
