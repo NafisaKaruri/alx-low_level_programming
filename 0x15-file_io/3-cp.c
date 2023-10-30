@@ -52,8 +52,6 @@ int main(int argc, char **argv)
 		dprintf(2, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
-	if (!argv[1])
-		read_err(argv);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		read_err(argv);
@@ -64,7 +62,6 @@ int main(int argc, char **argv)
 		_close(fd);
 		write_err(argv);
 	}
-
 	while ((r = read(fd, buffer, 1024)) > 0)
 	{
 		wcount = write(fd1, buffer, r);
