@@ -71,7 +71,7 @@ int main(int argc, char **argv)
 	if (_strcmp(argv[1], argv[2]) == 0)
 		return (0);
 	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
+	if (!argv[1] || fd == -1)
 		read_err(argv);
 
 	fd1 = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
