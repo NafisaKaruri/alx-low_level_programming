@@ -1,5 +1,5 @@
 #include "main.h"
-#include <sys/stat.h>
+
 /**
  * _close - close fd and exit if not closed
  * @fd: the file descriptor
