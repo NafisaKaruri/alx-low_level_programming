@@ -1,5 +1,19 @@
 #include "main.h"
 #include <sys/stat.h>
+/**
+ * _close - close fd and exit if not closed
+ * @fd: the file descriptor
+ */
+void _close(int fd)
+{
+	int c = close(fd);
+
+	if (c == -1)
+	{
+		dprintf(2, "Error: Can't close fd %d\n", fd);
+		exit(100);
+	}
+}
 
 /**
  * read_err - prints the error text and exits
@@ -30,7 +44,7 @@ void write_err(char **argv)
  */
 int main(int argc, char **argv)
 {
-	int fd, fd1, r, wcount, c;
+	int fd, fd1, r, wcount;
 	char buffer[1024];
 
 	if (argc != 3)
@@ -46,27 +60,28 @@ int main(int argc, char **argv)
 
 	fd1 = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (fd1 == -1)
+	{
+		_close(fd);
 		write_err(argv);
+	}
 
 	while ((r = read(fd, buffer, 1024)) > 0)
 	{
 		wcount = write(fd1, buffer, r);
 		if (wcount != r)
+		{
+			_close(fd);
+			_close(fd1);
 			write_err(argv);
+		}
 	}
 	if (r == -1)
+	{
+		_close(fd);
+		_close(fd1);
 		read_err(argv);
-	c = close(fd);
-	if (c == -1)
-	{
-		dprintf(2, "Error: Can't close fd %d\n", fd);
-		exit(100);
 	}
-	c = close(fd1);
-	if (c == -1)
-	{
-		dprintf(2, "Error: Can't close fd %d\n", fd1);
-		exit(100);
-	}
+	_close(fd);
+	_close(fd1);
 	return (0);
 }
