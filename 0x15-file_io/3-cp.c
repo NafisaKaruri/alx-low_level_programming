@@ -1,8 +1,9 @@
 #include "main.h"
+#include <sys/stat.h>
 
 /**
  * read_err - prints the error text and exits
- * argv: argument vector
+ * @argv: argument vector
  */
 void read_err(char **argv)
 {
@@ -12,7 +13,7 @@ void read_err(char **argv)
 
 /**
  * write_err - prints the error text and exits
- * argv: argument vector
+ * @argv: argument vector
  */
 void write_err(char **argv)
 {
@@ -31,6 +32,7 @@ int main(int argc, char **argv)
 {
 	int fd, fd1, r, wcount, c;
 	char buffer[1024];
+	mode_t oldmask;
 
 	if (argc != 3)
 	{
@@ -42,7 +44,9 @@ int main(int argc, char **argv)
 	if (fd == -1)
 		read_err(argv);
 
+	oldmask = umask(0);
 	fd1 = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	umask(oldmask);
 	if (fd1 == -1)
 		write_err(argv);
 
