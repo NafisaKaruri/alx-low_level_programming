@@ -20,6 +20,7 @@ void check_sys_cont(Elf64_Ehdr *header)
 			printf("Standalone App\n");
 			break;
 		default:
+			printf("<unknown: %x>\n", header->e_ident[EI_OSABI]);
 			break;
 	}
 }
