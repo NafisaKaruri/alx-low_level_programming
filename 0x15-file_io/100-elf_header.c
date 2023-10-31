@@ -37,7 +37,8 @@ void print_elf_header(Elf64_Ehdr *header)
 	printf("  Magic:   ");
 	for (i = 0; i < EI_NIDENT; i++)
 		printf("%02x ", header->e_ident[i]);
-	printf("\n  Class:                             ");
+	printf("\n");
+	printf("  Class:                             ");
 	printf("%s\n", header->e_ident[EI_CLASS] == ELFCLASS32 ? "ELF32" : "ELF64");
 	printf("  Data:                              ");
 	if (header->e_ident[EI_DATA] == ELFDATA2LSB)
@@ -90,7 +91,8 @@ int main(int argc, char **argv)
 	if (lseek(fd, 0, SEEK_SET) == -1)
 		dprintf(STDERR_FILENO, "Error: seeking in file"), exit(98);
 
-	if (read(fd, &header, sizeof(header)) != sizeof(header))
+	rcount = read(fd, &header, sizeof(header));
+	if (b < 1 || b != sizeof(header))
 		dprintf(STDERR_FILENO, "Error: Can't read from %s\n", argv[1]), exit(98);
 
 	if (header.e_ident[EI_MAG0] != ELFMAG0 ||
