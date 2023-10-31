@@ -203,8 +203,8 @@ int main(int argc, char **argv)
 		exit(98);
 	}
 
-	if (header.e_ident[0] != 0x7f && header.e_ident[1] != 'E' &&
-	header.e_ident[2] != 'L' && header.e_ident[3] != 'F')
+	if (!(header.e_ident[0] == 0x7f && header.e_ident[1] == 'E' &&
+	header.e_ident[2] == 'L' && header.e_ident[3] == 'F'))
 	{
 		dprintf(STDERR_FILENO, "Not an ELF file\n");
 		exit(98);
