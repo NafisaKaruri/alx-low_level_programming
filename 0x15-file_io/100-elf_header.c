@@ -51,7 +51,7 @@ void check_sys(Elf64_Ehdr *header)
 		case ELFOSABI_FREEBSD:
 			printf("UNIX - FreeBSD\n");
 			break;
-		case ELFOSABI_SYSV:
+		case ELFOSABI_NONE:
 			printf("UNIX - System V\n");
 			break;
 		case ELFOSABI_NETBSD:
