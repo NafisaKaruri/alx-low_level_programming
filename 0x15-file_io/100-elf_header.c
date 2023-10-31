@@ -149,10 +149,10 @@ void print_elf_header(Elf64_Ehdr *header)
 	switch (p[j])
 	{
 		case ET_NONE:
-			printf("NONE (None)");
+			printf("NONE (None)\n");
 			break;
 		case ET_REL:
-			printf("REL (Relocatable file)");
+			printf("REL (Relocatable file)\n");
 			break;
 		case ET_EXEC:
 			printf("EXEC (Executable file)\n");
@@ -161,10 +161,10 @@ void print_elf_header(Elf64_Ehdr *header)
 			printf("DYN (Shared object file)\n");
 			break;
 		case ET_CORE:
-			printf("CORE (Core file");
+			printf("CORE (Core file)\n");
 			break;
 		default:
-			printf("<unknown>: %x", p[j]);
+			printf("<unknown>: %x\n", p[j]);
 	}
 	check_entry(header);
 }
