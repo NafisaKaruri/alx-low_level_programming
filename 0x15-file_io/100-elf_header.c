@@ -8,6 +8,24 @@ void check_sys(Elf64_Ehdr *header)
 {
 	switch (header->e_ident[EI_OSABI])
 	{
+		case ELFOSABI_HPUX:
+			printf("UNIX - HP-UX\n");
+			break;
+		case ELFOSABI_LINUX:
+			printf("UNIX - Linux\n");
+			break;
+		case ELFOSABI_AIX:
+			printf("UNIX - AIX\n");
+			break;
+		case ELFOSABI_IRIX:
+			printf("UNIX - IRIX\n");
+			break;
+		case ELFOSABI_TRU64:
+			printf("UNIX - TRU64\n");
+			break;
+		case ELFOSABI_FREEBSD:
+			printf("UNIX - FreeBSD\n");
+			break;
 		case ELFOSABI_SYSV:
 			printf("UNIX - System V\n");
 			break;
