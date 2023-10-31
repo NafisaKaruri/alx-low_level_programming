@@ -66,7 +66,7 @@ void print_elf_header(Elf64_Ehdr *header)
 	else
 		printf("%s\n", "2's complement, big endian");
 	printf("  Version:                           ");
-	printf("%d (current)\n", header->e_ident[EI_VERSION]);
+	printf("%d%s\n", header->e_ident[EI_VERSION], header->e_ident[EI_VERSION] == EV_CURRENT ? " (current)" : "");
 	printf("  OS/ABI:                            ");
 	check_sys(header);
 	printf("  ABI Version:                       ");
