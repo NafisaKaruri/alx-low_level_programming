@@ -6,6 +6,7 @@
  */
 void check_sys(Elf64_Ehdr *header)
 {
+	printf("  OS/ABI:                            ");
 	switch (header->e_ident[EI_OSABI])
 	{
 		case ELFOSABI_HPUX:
@@ -49,6 +50,7 @@ void check_sys(Elf64_Ehdr *header)
  */
 void check_class(Elf64_Ehdr *header)
 {
+	printf("  Class:                             ");
 	switch (header->e_ident[EI_CLASS])
 	{
 		case ELFCLASS32:
@@ -72,6 +74,7 @@ void check_entry(Elf64_Ehdr *header)
 	int i = 0, len = 0;
 	unsigned char *ptr = (unsigned char *)&header->e_entry;
 
+	printf("  Entry point address:               0x");
 	if (header->e_ident[EI_DATA] != ELFDATA2MSB)
 	{
 		i = header->e_ident[EI_CLASS] == ELFCLASS64 ? 7 : 3;
@@ -102,13 +105,11 @@ void check_entry(Elf64_Ehdr *header)
  */
 void print_elf_header(Elf64_Ehdr *header)
 {
-	int i;
+	int i, j;
+	char *p = (char *)&header->e_type;
 
-	printf("ELF Header:\n");
-	printf("  Magic:   ");
 	for (i = 0; i < EI_NIDENT; i++)
 		printf("%2.2x%s", header->e_ident[i], i == EI_NIDENT - 1 ? "\n" : " ");
-	printf("  Class:                             ");
 	check_class(header);
 	printf("  Data:                              ");
 	if (header->e_ident[EI_DATA] == ELFDATA2LSB)
@@ -118,25 +119,31 @@ void print_elf_header(Elf64_Ehdr *header)
 	printf("  Version:                           ");
 	printf("%d", header->e_ident[EI_VERSION]);
 	printf("%s\n", header->e_ident[EI_VERSION] == EV_CURRENT ? " (current)" : "");
-	printf("  OS/ABI:                            ");
 	check_sys(header);
 	printf("  ABI Version:                       ");
 	printf("%d\n", header->e_ident[EI_ABIVERSION]);
 	printf("  Type:                              ");
-	switch (header->e_type)
+	j = header->e_ident[EI_DATA] == ELFDATA2MSB ? 1 : 0;
+	switch (p[j])
 	{
+		case ET_NONE:
+			printf("NONE (None)");
+			break;
+		case ET_REL:
+			printf("REL (Relocatable file)");
+			break;
 		case ET_EXEC:
 			printf("EXEC (Executable file)\n");
 			break;
 		case ET_DYN:
 			printf("DYN (Shared object file)\n");
 			break;
+		case ET_CORE:
+			printf("CORE (Core file");
+			break;
 		default:
-			printf("Other\n");
-
+			printf("<unknown>: %x", p[j]);
 	}
-	printf("  Entry point address:               ");
-	printf("0x");
 	check_entry(header);
 }
 
@@ -177,6 +184,8 @@ int main(int argc, char **argv)
 		exit(98);
 	}
 
+	printf("ELF Header:\n");
+	printf("  Magic:   ");
 	print_elf_header(&header);
 
 	close(fd);
