@@ -127,11 +127,9 @@ void check_entry(Elf64_Ehdr *header)
  */
 void print_elf_header(Elf64_Ehdr *header)
 {
-	int i, j;
+	int j;
 	char *p = (char *)&header->e_type;
 
-	for (i = 0; i < EI_NIDENT; i++)
-		printf("%2.2x%s", header->e_ident[i], i == EI_NIDENT - 1 ? "\n" : " ");
 	check_class(header);
 	printf("  Data:                              ");
 	if (header->e_ident[EI_DATA] == ELFDATA2LSB)
@@ -181,7 +179,7 @@ void print_elf_header(Elf64_Ehdr *header)
  */
 int main(int argc, char **argv)
 {
-	int fd;
+	int fd, i;
 	Elf64_Ehdr header;
 	ssize_t rcount;
 
@@ -191,9 +189,6 @@ int main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		dprintf(STDERR_FILENO, "Error: Can't open file %s\n", argv[1]), exit(98);
-
-	if (lseek(fd, 0, SEEK_SET) == -1)
-		dprintf(STDERR_FILENO, "Error: seeking in file"), exit(98);
 
 	rcount = read(fd, &header, sizeof(header));
 	if (rcount < 1 || rcount != sizeof(header))
@@ -208,8 +203,17 @@ int main(int argc, char **argv)
 		exit(98);
 	}
 
+	if (header.e_ident[0] != 0x7f && header.e_ident[1] != 'E' &&
+	header.e_ident[2] != 'L' && header.e_ident[3] != 'F')
+	{
+		dprintf(STDERR_FILENO, "Not an ELF file\n");
+		exit(98);
+	}
 	printf("ELF Header:\n");
 	printf("  Magic:   ");
+	for (i = 0; i < EI_NIDENT; i++)
+		printf("%2.2x%s", header.e_ident[i], i == EI_NIDENT - 1 ? "\n" : " ");
+
 	print_elf_header(&header);
 
 	close(fd);
