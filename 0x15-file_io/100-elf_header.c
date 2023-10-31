@@ -80,6 +80,7 @@ int main(int argc, char **argv)
 {
 	int fd;
 	Elf64_Ehdr header;
+	ssize_t rcount;
 
 	if (argc != 2)
 		dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n"), exit(98);
@@ -92,7 +93,7 @@ int main(int argc, char **argv)
 		dprintf(STDERR_FILENO, "Error: seeking in file"), exit(98);
 
 	rcount = read(fd, &header, sizeof(header));
-	if (b < 1 || b != sizeof(header))
+	if (rcount < 1 || rcount != sizeof(header))
 		dprintf(STDERR_FILENO, "Error: Can't read from %s\n", argv[1]), exit(98);
 
 	if (header.e_ident[EI_MAG0] != ELFMAG0 ||
