@@ -127,8 +127,8 @@ void check_entry(Elf64_Ehdr *header)
  */
 void print_elf_header(Elf64_Ehdr *header)
 {
-	int j = header->e_ident[EI_DATA] == ELFDATA2MSB ? 1 : 0;
-	char *p = (char *)&header->e_type;
+	/*int j = header->e_ident[EI_DATA] == ELFDATA2MSB ? 1 : 0;*/
+	/*char *p = (char *)&header->e_type;*/
 
 	check_class(header);
 	printf("  Data:                              ");
@@ -145,7 +145,7 @@ void print_elf_header(Elf64_Ehdr *header)
 	printf("  ABI Version:                       ");
 	printf("%d\n", header->e_ident[EI_ABIVERSION]);
 	printf("  Type:                              ");
-	switch (p[j])
+	switch (header->e_type)
 	{
 		case ET_NONE:
 			printf("NONE (None)\n");
@@ -163,7 +163,7 @@ void print_elf_header(Elf64_Ehdr *header)
 			printf("CORE (Core file)\n");
 			break;
 		default:
-			printf("<unknown>: %x\n", p[j]);
+			printf("<unknown>: %x\n", header->e_type);
 			break;
 	}
 	check_entry(header);
