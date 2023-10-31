@@ -136,8 +136,10 @@ void print_elf_header(Elf64_Ehdr *header)
 	printf("  Data:                              ");
 	if (header->e_ident[EI_DATA] == ELFDATA2LSB)
 		printf("%s\n", "2's complement, little endian");
-	else
+	else if (header->e_ident[EI_DATA] == ELFDATA2MSB)
 		printf("%s\n", "2's complement, big endian");
+	else
+		printf("%s\n", "none");
 	printf("  Version:                           ");
 	printf("%d", header->e_ident[EI_VERSION]);
 	printf("%s\n", header->e_ident[EI_VERSION] == EV_CURRENT ? " (current)" : "");
