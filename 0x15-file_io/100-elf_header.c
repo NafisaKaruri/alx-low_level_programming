@@ -81,11 +81,14 @@ int main(int argc, char **argv)
 	Elf64_Ehdr header;
 
 	if (argc != 2)
-		dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n"), exit(97);
+		dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n"), exit(98);
 
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		dprintf(STDERR_FILENO, "Error: Can't open file %s\n", argv[1]), exit(98);
+
+	if (lseek(fd, 0, SEEK_SET) == -1)
+		dprintf(STDERR_FILENO, "Error: seeking in file"), exit(98);
 
 	if (read(fd, &header, sizeof(header)) != sizeof(header))
 		dprintf(STDERR_FILENO, "Error: Can't read from %s\n", argv[1]), exit(98);
