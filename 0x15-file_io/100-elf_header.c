@@ -24,6 +24,27 @@ void check_sys(Elf64_Ehdr *header)
 			printf("Other\n");
 	}
 }
+
+/**
+ * check_class - checks class and prints it
+ * @header: the ELF header
+ */
+void check_class(Elf64_Ehdr *header)
+{
+	switch (header->e_ident[EI_CLASS])
+	{
+		case ELFCLASS32:
+			printf("ELF32\n");
+			break;
+		case ELFCLASS64:
+			printf("ELF64\n");
+			break;
+		case ELFCLASSNONE:
+			printf("none\n");
+			break;
+	}
+}
+
 /**
  * print_elf_header - displays the information contained in the ELF
  * header at the start of an ELF FILE
@@ -38,7 +59,7 @@ void print_elf_header(Elf64_Ehdr *header)
 	for (i = 0; i < EI_NIDENT; i++)
 		printf("%2.2x%s", header->e_ident[i], i == EI_NIDENT - 1 ? "\n" : " ");
 	printf("  Class:                             ");
-	printf("%s\n", header->e_ident[EI_CLASS] == ELFCLASS32 ? "ELF32" : "ELF64");
+	check_class(header);
 	printf("  Data:                              ");
 	if (header->e_ident[EI_DATA] == ELFDATA2LSB)
 		printf("%s\n", "2's complement, little endian");
