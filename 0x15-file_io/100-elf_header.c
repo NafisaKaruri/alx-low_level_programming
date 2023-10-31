@@ -93,6 +93,15 @@ int main(int argc, char **argv)
 	if (read(fd, &header, sizeof(header)) != sizeof(header))
 		dprintf(STDERR_FILENO, "Error: Can't read from %s\n", argv[1]), exit(98);
 
+	if (header.e_ident[EI_MAG0] != ELFMAG0 ||
+	header.e_ident[EI_MAG1] != ELFMAG1 ||
+	header.e_ident[EI_MAG2] != ELFMAG2 ||
+	header.e_ident[EI_MAG3] != ELFMAG3)
+	{
+		dprintf(STDERR_FILENO, "Not an ELF file\n");
+		exit(98);
+	}
+
 	print_elf_header(&header);
 
 	close(fd);
