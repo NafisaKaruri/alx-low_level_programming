@@ -8,7 +8,7 @@ void check_sys_cont(Elf64_Ehdr *header)
 	switch (header->e_ident[EI_OSABI])
 	{
 		case ELFOSABI_MODESTO:
-			printf("NOVELL - Modesto\n");
+			printf("Novell - Modesto\n");
 			break;
 		case ELFOSABI_OPENBSD:
 			printf("UNIX - OpenBSD\n");
