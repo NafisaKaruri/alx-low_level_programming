@@ -64,6 +64,38 @@ void check_class(Elf64_Ehdr *header)
 }
 
 /**
+ * check_entry - prints the entry point address
+ * @header: the ELF header
+ */
+void check_entry(Elf64_Ehdr *header)
+{
+	int i = 0, len = 0;
+	unsigned char *ptr = (unsigned char *)&header->e_entry;
+
+	if (header->e_ident[EI_DATA] != ELFDATA2MSB)
+	{
+		i = header->e_ident[EI_CLASS] == ELFCLASS64 ? 7 : 3;
+		while (!ptr[i])
+			i--;
+		printf("%x", ptr[i--]);
+		for (; i >= 0; i--)
+			printf("%02x", ptr[i]);
+		printf("\n");
+	}
+	else
+	{
+		i = 0;
+		len = header->e_ident[EI_CLASS] == ELFCLASS64 ? 7 : 3;
+		while (!ptr[i])
+			i++;
+		printf("%x", ptr[i++]);
+		for (; i <= len; i++)
+			printf("%02x", ptr[i]);
+		printf("\n");
+	}
+}
+
+/**
  * print_elf_header - displays the information contained in the ELF
  * header at the start of an ELF FILE
  * @header: the ELF header
@@ -104,7 +136,8 @@ void print_elf_header(Elf64_Ehdr *header)
 
 	}
 	printf("  Entry point address:               ");
-	printf("0x%lx\n", header->e_entry);
+	printf("0x");
+	check_entry(header);
 }
 
 /**
