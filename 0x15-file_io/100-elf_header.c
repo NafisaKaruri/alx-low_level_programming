@@ -1,4 +1,28 @@
 #include "main.h"
+/**
+ * check_sys_cont - continues checking the system and prints the os/abi
+ * @header: the ELF header
+ */
+void check_sys_cont(Elf64_Ehdr *header)
+{
+	switch (header->e_ident[EI_OSABI])
+	{
+		case ELFOSABI_MODESTO:
+			printf("NOVELL - Modesto\n");
+			break;
+		case ELFOSABI_OPENBSD:
+			printf("UNIX - OpenBSD\n");
+			break;
+		case ELFOSABI_ARM:
+			printf("ARM\n");
+			break;
+		case ELFOSABI_STANDALONE:
+			printf("Standalone App\n");
+			break;
+		default:
+			printf("<unknown: %x>", header->e_ident[EI_OSABI]);
+	}
+}
 
 /**
  * check_sys - checks the system and prints the os/abi
@@ -36,11 +60,9 @@ void check_sys(Elf64_Ehdr *header)
 		case ELFOSABI_SOLARIS:
 			printf("UNIX - Solaris\n");
 			break;
-		case 53:
-			printf("<unknown: 53>\n");
-			break;
 		default:
-			printf("Other\n");
+			check_sys_cont(header);
+			break;
 	}
 }
 
