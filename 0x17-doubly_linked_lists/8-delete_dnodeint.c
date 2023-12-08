@@ -2,7 +2,7 @@
 
 /**
  * delete_dnodeint_at_index - deletes the node at index index of a list
- * @h: pointer to the head of the list
+ * @head: pointer to the head of the list
  * @index: the index of the node in question
  *
  * Return: 1 if it succeeded, -1 if it failed
