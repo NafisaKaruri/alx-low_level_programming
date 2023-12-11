@@ -3,9 +3,14 @@ def is_palindrome(n):
 
 max_palindrome = 0
 for i in range(999, 99, -1):
+    if i * i < max_palindrome:
+        break
     for j in range(i, 99, -1):
         prod = i * j
-        if is_palindrome(prod) and prod > max_palindrome:
+        if prod < max_palindrome:
+            break
+        if is_palindrome(prod):
             max_palindrome = prod
 
 print(max_palindrome, end='')
+
