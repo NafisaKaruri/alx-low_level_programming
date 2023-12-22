@@ -40,6 +40,8 @@ shash_table_t *shash_table_create(unsigned long int size)
  */
 int update_key(shash_node_t *node, const char *value)
 {
+	if (strcmp(node->value, value) == 0)
+		return (1);
 	free(node->value);
 	node->value = strdup(value);
 	if (!node->value)
