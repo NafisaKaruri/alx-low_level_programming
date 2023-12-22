@@ -66,7 +66,11 @@ int ins(shash_table_t **h, const char *key, const char *v, unsigned long int i)
 	new_node->key = strdup(key);
 	new_node->value = strdup(v);
 	if (!new_node->key || !new_node->value)
+	{
+		new_node->key ? free(new_node), free(new_node->key) : (void)0;
+		new_node->value ? free(new_node), free(new_node->value) : (void)0;
 		return (0);
+	}
 	new_node->next = (*h)->array[i];
 	(*h)->array[i] = new_node;
 	temp = (*h)->shead;
