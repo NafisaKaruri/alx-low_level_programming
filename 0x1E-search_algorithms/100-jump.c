@@ -1,7 +1,7 @@
 #include "search_algos.h"
 
 /**
- * jump_search - searches for a value in a sorted array using jump search algorithm
+ * jump_search - searches for a value in a sorted array using jump search algo
  *
  * @array: pinter to the first element of the array to search in
  * @size: the number of elements in array
@@ -33,7 +33,7 @@ int jump_search(int *array, size_t size, int value)
 
 	printf("Value found between indexes [%ld] and [%ld]\n", i, jump);
 
-	/* if jump is greater than the size set it to last index */
+	/* if jump is greater than the size, set it to last index */
 	jump = jump < size - 1 ? jump : size - 1;
 	/* Loop from the last jump index to current */
 	for (; i <= jump && array[i] <= value; i++)
@@ -41,7 +41,7 @@ int jump_search(int *array, size_t size, int value)
 
 	/* value found */
 	if (array[--i] == value)
-		return ((int)i);
+		return (i);
 	/* value not found */
 	else
 		return (-1);
