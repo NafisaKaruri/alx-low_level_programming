@@ -36,17 +36,17 @@ int jump_search(int *array, size_t size, int value)
 	/* if jump is greater than the size, set it to last index */
 	jump = jump < size - 1 ? jump : size - 1;
 	/* Loop from the last jump index to current */
-	for (; i <= jump && array[i] <= value; i++)
+	for (; i < jump && array[i] < value; i++)
 	{
 		printf("Value checked array[%ld] = [%d]\n", i, array[i]);
-		if (array[i] == value)
-			break;
 	}
 
 	/* value found */
 	if (array[i] == value)
+	{
+		printf("Value checked array[%ld] = [%d]\n", i, array[i]);
 		return (i);
+	}
 	/* value not found */
-	else
-		return (-1);
+	return (-1);
 }
