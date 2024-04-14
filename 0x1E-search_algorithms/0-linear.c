@@ -3,6 +3,7 @@
 /**
  * linear_search - searches for a value in an array using linear search
  *
+ * @array: pointer to the first element of the aray to search in
  * @size: the number of elements in array
  * @value: the value to search for
  *
